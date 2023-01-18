@@ -1,10 +1,16 @@
-struct mapa {
-    char** matriz;
+struct mapa
+{
+    char **matriz;
     int linhas;
     int colunas;
 };
 
 typedef struct mapa MAPA;
+
+void alocamapa(MAPA *m);
+void lemapa(MAPA *m);
+void liberamapa(MAPA *m);
+void imprimemapa(MAPA *m);
 
 struct posicao
 {
@@ -14,7 +20,10 @@ struct posicao
 
 typedef struct posicao POSICAO;
 
-void alocamapa(MAPA* m);
-void lemapa(MAPA *m);
-void liberamapa(MAPA *m);
-void imprimemapa(MAPA *m);
+void encontramapa(MAPA *m, POSICAO *p, char c);
+
+int ehValida(MAPA *m, int x, int y);
+int ehVazia(MAPA *m, int x, int y);
+
+void andanomapa(MAPA *m, int xorigem, int yorigem,
+                int xdestino, int ydestino);
