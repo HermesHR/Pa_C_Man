@@ -1,61 +1,74 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "fogefoge.h"
+#include "mapa.h"
 
-char **mapa;
-int linhas;
-int colunas;
+MAPA m;
+POSICAO heroi;
 
-void lemapa()
+int acabou()
 {
-    FILE *f;
-    f = fopen("mapa.txt", "r");
-    if (f == 0)
-    {
-        printf("Erro na leitura do mapa");
-        exit(1);
-    }
-
-    fscanf(f, "%d %d", &linhas, &colunas);
-    alocamapa();
-
-    for (int i = 0; i < linhas; i++)
-    {
-        fscanf(f, "%s", mapa[i]);
-    }
-
-    fclose(f);
+    return 0;
 }
 
-void alocamapa()
+void move(char direcao)
 {
-    mapa = malloc(sizeof(char *) * linhas);
+    m.matriz[heroi.x][heroi.y] = '.';
 
-    for (int i = 0; i < linhas; i++)
+    switch (direcao)
     {
-        mapa[i] = malloc(sizeof(char) * colunas + 1);
+    case 'a':
+        m.matriz[heroi.x][heroi.y - 1] = '@';
+        heroi.y--;
+        break;
+    case 'w':
+        m.matriz[heroi.x - 1][heroi.y] = '@';
+        heroi.x--;
+        break;
+    case 's':
+        m.matriz[heroi.x + 1][heroi.y] = '@';
+        heroi.x++;
+        break;
+    case 'd':
+        m.matriz[heroi.x][heroi.y + 1] = '@';
+        heroi.y++;
+        break;
     }
 }
 
-void liberamapa()
+void encontramapa(MAPA *m, POSICAO *p, char c)
 {
-    for (int i = 0; i < linhas; i++)
-    {
-        free(mapa[i]);
-    }
 
-    free(mapa);
+    for (int i = 0; i < m->linhas; i++)
+    {
+        for (int j = 0; j < m->colunas; j++)
+        {
+            if (m->matriz[i][j] == c)
+            {
+                p->x = i;
+                p->y = j;
+                break;
+            }
+        }
+    }
 }
 
 int main()
 {
 
-    lemapa();
+    lemapa(&m);
+    encontramapa(&m, &heroi, '@');
 
-    for (int i = 0; i < linhas; i++)
+    do
     {
-        printf("%s\n", mapa[i]);
-    }
 
-    liberamapa();
+        imprimemapa(&m);
+
+        char comando;
+        scanf(" %c", &comando);
+        move(comando);
+
+    } while (!acabou());
+
+    liberamapa(&m);
 }
-
