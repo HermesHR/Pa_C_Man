@@ -25,7 +25,7 @@ void lemapa(MAPA *m)
     fclose(f);
 }
 
-void alocamapa(MAPA* m)
+void alocamapa(MAPA *m)
 {
     m->matriz = malloc(sizeof(char *) * m->linhas);
 
