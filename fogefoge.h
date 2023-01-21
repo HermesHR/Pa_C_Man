@@ -1,4 +1,3 @@
-
 #define CIMA 'w'
 #define BAIXO 's'
 #define DIREITA 'd'
@@ -7,4 +6,5 @@
 int acabou();
 void move(char direcao);
 
-int ehDirecao(char direcao);
+int ehdirecao(char direcao);
+void fantasmas();
