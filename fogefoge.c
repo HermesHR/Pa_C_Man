@@ -1,9 +1,11 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "time.h"
 #include "fogefoge.h"
 #include "mapa.h"
 #include <locale.h>
+#include "ui.h"
 
 MAPA m;
 POSICAO heroi;
